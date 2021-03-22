@@ -1,0 +1,28 @@
+{
+  "name": "windows",
+  "version": "1.0.0",
+  "description": "This repository is for personal use only.\r It contains helper scripts tailored for my usage.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jehon/windows.git"
+  },
+  "author": "",
+  "license": "Private",
+  "bugs": {
+    "url": "https://github.com/jehon/windows/issues"
+  },
+  "homepage": "https://github.com/jehon/windows#readme",
+  "dependencies": {
+    "glob": "7.1.6",
+    "terminal-kit": "2.0.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "12.0.1",
+    "@commitlint/config-conventional": "12.0.1",
+    "gh-pages": "3.1.0",
+    "husky": "5.2.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
