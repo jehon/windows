@@ -17,6 +17,10 @@ Get-ChildItem "$RootDir\etc" -Filter *.reg | Foreach-Object {
     regedit /S "$F"
 }
 
+# explorer.exe shell:startup
+Write-Output "Installing startup scripts"
+Copy-Item -Recurse -Force -Path "$RootDir\startup\*" -Destination "C:\Users\jho\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+
 choco feature enable -n=allowGlobalConfirmation
 
 choco install git
@@ -32,4 +36,4 @@ choco install psutils
 # choco install meld
 # choco install gradle
 # choco install nano
-choco install xmind
+# choco install xmind
