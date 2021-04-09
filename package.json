@@ -14,6 +14,7 @@
   "homepage": "https://github.com/jehon/windows#readme",
   "dependencies": {
     "glob": "7.1.6",
+    "read-excel-file": "5.1.0",
     "terminal-kit": "2.0.7"
   },
   "devDependencies": {

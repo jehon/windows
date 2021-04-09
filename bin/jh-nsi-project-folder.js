@@ -2,11 +2,32 @@
 
 // See https://github.com/cronvel/terminal-kit/blob/HEAD/doc/high-level.md#ref.fileInput
 
+const LIST_FILE = "C:/Users/jho/OneDrive - NSI IT Software & Services (NSISABE)/Desktop/Storage/ProjectData/listing.xlsx";
+
 import terminal from 'terminal-kit';
-import glob from 'glob';
+// import glob from 'glob';
 import childProcess from 'child_process';
-import projects from 'file://C:\\Users\\jho\\OneDrive - NSI IT Software & Services (NSISABE)\\Documents\\NSI\\projects.mjs';
+import readXlsxFile from 'read-excel-file/node/index.commonjs.js';
 const term = terminal.terminal;
+
+const xlsxprojects = await readXlsxFile(LIST_FILE);
+const headers = xlsxprojects.shift();
+
+const projects = xlsxprojects.map(row => {
+	const res = {};
+	for (let i = 0; i < headers.length; i++) {
+		res[headers[i]] = row[i];
+	}
+	return res;
+})
+
+term.on('key', function (name, matches, data) {
+	// console.log("'key' event:", name);
+	if (name === 'CTRL_C' || name === 'ESCAPE') {
+		term.grabInput(false);
+		setTimeout(function () { process.exit() }, 100);
+	}
+});
 
 term.fullscreen();
 
@@ -17,8 +38,12 @@ projects.filter(e => e.title > '');
 
 projects.sort((a, b) => (a.wo + a.id).localeCompare(b.wo + b.id));
 
-process.stdout.write(` ${'id'.padStart(7, ' ')} | ${'wo'.padStart(7)} | status     | title\n`);
-var items = projects.map(v => `${('' + v.id).padStart(7, ' ')} | ${v.wo.padStart(7)} | ${v.status.padEnd(10)} | ${v.title}`);
+const padId = projects.map(p => ("" + p.id).length).reduce((prev, cur) => Math.max(prev, cur), 0) + 1;
+const padWO = projects.map(p => ("" + p.WO).length).reduce((prev, cur) => Math.max(prev, cur), 0) + 2;
+const padStatus = projects.map(p => ("" + p.status).length).reduce((prev, cur) => Math.max(prev, cur), 0) + 1;
+
+process.stdout.write(` ${'id'.padStart(padId, ' ')} | ${'wo'.padStart(padWO)} | ${"status".padEnd(padStatus)} | title\n`);
+var items = projects.map(v => `${('' + v.id).padStart(padId, ' ')} | ${v.wo.padStart(padWO)} | ${v.status.padEnd(padStatus)} | ${v.title}`);
 
 term.singleColumnMenu(items, function (error, response) {
 	// response.selectedIndex
