@@ -14,13 +14,13 @@
   "homepage": "https://github.com/jehon/windows#readme",
   "dependencies": {
     "glob": "7.1.7",
-    "read-excel-file": "5.2.5",
+    "read-excel-file": "5.2.7",
     "terminal-kit": "2.1.5"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
-    "husky": "7.0.0"
+    "husky": "7.0.1"
   },
   "type": "module",
   "scripts": {
