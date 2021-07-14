@@ -15,7 +15,7 @@
   "dependencies": {
     "glob": "7.1.7",
     "read-excel-file": "5.2.7",
-    "terminal-kit": "2.1.5"
+    "terminal-kit": "2.1.6"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
