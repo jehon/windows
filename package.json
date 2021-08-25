@@ -20,7 +20,7 @@
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
-    "husky": "7.0.1"
+    "husky": "7.0.2"
   },
   "type": "module",
   "scripts": {
