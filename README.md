@@ -15,7 +15,6 @@ choco install git
 
 - 7zip
 - notepadplusplus
-- MS Team
 - WSL Ubuntu
 - HyperV (features)
 
@@ -23,6 +22,10 @@ choco install git
 
 - vscode
 - VideoCutter and Compressor 
+
+## Docker Desktop
+
+User need to be in docker-users group (in windows)
 
 ## Starup applications
 
