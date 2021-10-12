@@ -4,6 +4,10 @@ Shared drive: https://www.altaro.com/hyper-v/transfer-files-linux-hyper-v-guest/
 
 # System
 
+## Configure
+
+In explorer => right click in "folders" (left pane) => show all folders
+
 ## Installed
 
 ### Choco
