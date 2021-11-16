@@ -3,10 +3,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 choco feature enable -n=allowGlobalConfirmation
 
-choco install docker-desktop firefox git google-drive-file-stream hashtab mobaxterm naps2 notepadplusplus plantronicshub psutils vscode vcbuildtools wsl2
+choco install docker-desktop firefox git google-drive-file-stream hashtab mobaxterm naps2 notepadplusplus plantronicshub psutils vscode wsl2
 
-# choco install jdk11 -params "static=false"
+# gradle jdk11 maven
+# vcbuildtools
+
 # choco install freemind
-# choco install gradle
 # choco install nano
 # choco install xmind
