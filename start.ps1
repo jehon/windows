@@ -1,9 +1,31 @@
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+# Get-Help Invoke-Expression
+
+$testchoco = powershell choco -v
+if (-not($testchoco)) {
+  Write-Output "Installing choco"
+  Set-ExecutionPolicy Bypass -Scope Process -Force
+  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+  iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+}
 
 choco feature enable -n=allowGlobalConfirmation
 
-choco install docker-desktop firefox git google-drive-file-stream greenshot hashtab logitech-options mobaxterm naps2 notepadplusplus plantronicshub psutils vscode wsl2
+choco install `
+  docker-desktop `
+  firefox `
+  git `
+  google-drive-file-stream `
+  greenshot `
+  hashtab `
+  logitech-options `
+  mobaxterm `
+  naps2 `
+  notepadplusplus `
+  plantronicshub `
+  psutils `
+  vscode `
+  wsl2
 
 # gradle jdk11 maven
 # vcbuildtools
