@@ -29,6 +29,7 @@ choco install `
   wsl2
 
 wsl --set-default-version 2
+wslconfig /setdefault Ubuntu
 
 # Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
 
