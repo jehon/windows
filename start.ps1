@@ -3,8 +3,7 @@
 $RootDir = $PSScriptRoot
 
 # Write-Output $PSScriptRoot $RootDir
-
-. $RootDir\lib\require-admin.ps1
+# . $RootDir\lib\require-admin.ps1
 
 if (Enter-Admin) {
     Write-Output "This script is restated as admin"
