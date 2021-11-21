@@ -24,6 +24,7 @@ choco install `
   notepadplusplus `
   plantronicshub `
   psutils `
+  vlc `
   vscode `
   wsl-ubuntu-2004 `
   wsl2
