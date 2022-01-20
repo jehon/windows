@@ -13,7 +13,7 @@ if (Enter-Admin) {
     # As Admin
 
     Write-Output "Updating..."
-    choco update all
+    choco upgrade all
 }
 
 Write-Output "...done"
