@@ -24,7 +24,6 @@ Copy-Item -Recurse -Force -Path "$RootDir\startup\*" -Destination "C:\Users\jho\
 choco feature enable -n=allowGlobalConfirmation
 
 choco install git
-choco install docker-desktop
 choco install vcbuildtools
 choco install naps2
 choco install mobaxterm

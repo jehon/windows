@@ -1,7 +1,7 @@
 ﻿
 Param([String]$path)
 
-$backupDir = "$HOME\OneDrive - NSI IT Software & Services (NSISABE)\Desktop\Documents\Backups\"
+$backupDir = "$HOME\OneDrive - NSI IT Software & Services (NSISABE)\Desktop\Documents\Archives\"
 New-Item -ItemType Directory -Force -Path $backupDir
 
 # Thanks to https://stackoverflow.com/a/1954384/1954789
