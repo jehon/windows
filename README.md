@@ -1,8 +1,14 @@
 # windows
 
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/jehon/windows/main/start.ps1'))
+
 Shared drive: https://www.altaro.com/hyper-v/transfer-files-linux-hyper-v-guest/
 
 # System
+
+## Configure
+
+In explorer => right click in "folders" (left pane) => show all folders
 
 ## Installed
 
@@ -15,7 +21,6 @@ choco install git
 
 - 7zip
 - notepadplusplus
-- MS Team
 - WSL Ubuntu
 - HyperV (features)
 
@@ -23,6 +28,10 @@ choco install git
 
 - vscode
 - VideoCutter and Compressor 
+
+## Docker Desktop
+
+User need to be in docker-users group (in windows)
 
 ## Starup applications
 
