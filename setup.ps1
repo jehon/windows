@@ -27,10 +27,21 @@ choco install naps2
 choco install mobaxterm
 choco install hashtab
 choco install psutils
+choco install xmind
+choco install vagrant
+
+# Non testé
+choco install clickshare-desktop
+choco install plantronicshub
+choco install logitech-options
+choco install unifying
+choco install supertuxkart
+choco install digikam
+choco install greenshot
+choco install firefox
 
 # choco install freemind
 # choco install jdk11 -params "static=false"
 # choco install meld
 # choco install gradle
 # choco install nano
-# choco install xmind
