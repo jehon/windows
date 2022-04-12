@@ -29,6 +29,8 @@ choco install hashtab
 choco install psutils
 choco install xmind
 choco install vagrant
+# https://github.com/gerardog/gsudo
+choco install gsudo
 
 # Non testé
 choco install clickshare-desktop
