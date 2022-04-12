@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+vm_name = "jhodev"
+
 Vagrant.configure("2") do |config|
   config.vm.provider "hyperv"
   
@@ -12,9 +14,9 @@ Vagrant.configure("2") do |config|
   # via 127.0.0.1 to disable public access
   # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 
-  # config.vm.network "private_network", ip: "192.168.100.2"
+  config.vm.network "public_network", bridge: "Default Switch"
   config.vm.network "public_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
-  config.vm.hostname = "jhodev"
+  config.vm.hostname = vm_name
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -30,8 +32,9 @@ Vagrant.configure("2") do |config|
 	h.linked_clone = true
 	h.memory = 4096
 	h.maxmemory = 4096
+	h.vmname = vm_name
   end
-
+  
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
   SHELL
