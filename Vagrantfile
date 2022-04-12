@@ -2,22 +2,19 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  config.vm.provider "hyperv"
+  
   # Boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/impish64"
-
+  config.vm.box = "generic/ubuntu2110"
+  
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  # config.vm.network "private_network", ip: "192.168.100.2"
+  config.vm.network "public_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
+  config.vm.hostname = "jhodev"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -25,11 +22,17 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # config.vm.provider "hyperv" do |vb|
-  # end
+  config.vm.provider "hyperv" do |h|
+	# https://www.vagrantup.com/docs/providers/hyperv/configuration#enable_enhanced_session_mode
+    h.cpus = 2
+	h.enable_virtualization_extensions = true
+	h.enable_enhanced_session_mode = true
+	h.linked_clone = true
+	h.memory = 4096
+	h.maxmemory = 4096
+  end
 
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+  SHELL
 end
