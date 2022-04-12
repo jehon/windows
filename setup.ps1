@@ -47,3 +47,6 @@ choco install firefox
 # choco install meld
 # choco install gradle
 # choco install nano
+
+# For Vagrant
+# [Environment]::SetEnvironmentVariable("VAGRANT_DEFAULT_PROVIDER", "hyperv", "User")
