@@ -29,6 +29,7 @@ choco install hashtab
 choco install psutils
 choco install xmind
 choco install vagrant
+choco install mkvtoolnix
 # https://github.com/gerardog/gsudo
 choco install gsudo
 
