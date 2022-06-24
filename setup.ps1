@@ -32,6 +32,7 @@ choco install vagrant
 choco install mkvtoolnix
 # https://github.com/gerardog/gsudo
 choco install gsudo
+choco install encfs4win
 
 # Non testé
 choco install clickshare-desktop
