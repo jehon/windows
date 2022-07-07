@@ -2,6 +2,8 @@
 # https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-machine-in-hyper-v
 # https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell
 
+$ErrorActionPreference = "Stop"
+
 # Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 $VMName = "dev"
@@ -33,19 +35,19 @@ New-VHD -Path $VMDisk -SizeBytes 60GB -Fixed
 
 Write-Output "* Creating the VM"
 New-VM -Name $VMName `
-    -Path $VMRoot\dev `
+    -Path $VMRoot `
     -MemoryStartupBytes 4096Mb `
     -VHDPath $VMDisk `
-    -Switch $NetworkSwitchName `
+    -Switch "Default Switch"
 
 Set-VMMemory -VMName $VMName `
     -DynamicMemoryEnabled 0
 #    -MaximumBytes <Int64>
 #    -MinimumBytes <Int64>
 
+# Add a eth1 additionnal interface
 Add-VMNetworkAdapter -VMName $VMName `
-    -SwitchName "Default Switch"
-
+    -SwitchName $NetworkSwitchName
 
 Write-Output "* Add the iso"
 if (Test-Path $ISOFile) {
@@ -53,5 +55,13 @@ if (Test-Path $ISOFile) {
 } else {
     Write-Output "[I] Downloading iso file $ISOURL to $ISOFile"
     Invoke-WebRequest -Uri $ISOURL -OutFile $ISOFile
+
+    # TODO: modify the iso for automatic install
 }
 
+Set-VMDvdDrive -VMName $VMName `
+    -ControllerNumber 1 `
+    -Path $ISOFile
+
+Write-Output "* Setup $VMName"
+Start-VM -Name $VMName
