@@ -49,7 +49,6 @@ choco install jdk11 -params "static=false"
 choco install mobaxterm
 choco install naps2
 choco install psutils
-choco install tortoisegit
 choco install vagrant
 choco install vcbuildtools
 choco install xmind
