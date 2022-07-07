@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "vagrant-dev"
   config.vm.network "public_network", bridge: "Default Switch"
   # Not working: 
-  # config.vm.network "public_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
+  # config.vm.network "private_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
 
   # https://www.vagrantup.com/docs/disks/configuration
   # https://www.vagrantup.com/docs/disks/hyperv/usage
@@ -45,13 +45,14 @@ Vagrant.configure("2") do |config|
   #
   # Configure
   #
-
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
-  # SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
+  SHELL
 
   #
   # Interact with
   #
 
+  # Not working:
+  # config.vm.network "forwarded_port", guest: 22, host: 3022
 end
