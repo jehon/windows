@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   #
 
   # Boxes at https://vagrantcloud.com/search.
-  config.vm.box = "generic/ubuntu2204"
+  config.vm.box = "generic/debian11"
   config.vm.hostname = "vagrant-dev"
   config.vm.network "public_network", bridge: "Default Switch"
 
@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provider "hyperv" do |h|
     # https://www.vagrantup.com/docs/providers/hyperv/configuration
+    h.auto_start_action = "StartIfRunning"
     h.cpus = 2
     h.enable_virtualization_extensions = true
     h.enable_enhanced_session_mode = true
