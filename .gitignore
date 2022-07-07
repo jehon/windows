@@ -1,7 +1,5 @@
 
-.vscode
 *.tmp
 tmp/
 node_modules
-
 .vagrant
