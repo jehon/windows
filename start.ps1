@@ -45,6 +45,7 @@ Write-Output "Installing startup scripts done"
 
 Write-Output "Installing choco packages..."
 choco install digikam
+choco install encfs4win
 choco install hashtab
 choco install jdk11 -params "static=false"
 choco install mobaxterm
