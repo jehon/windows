@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
   # Boxes at https://vagrantcloud.com/search.
   config.vm.box = "generic/ubuntu2110"
   config.vm.hostname = "dev"
+  config.vm.network "public_network", bridge: "Default Switch"
   # https://www.vagrantup.com/docs/disks/configuration
   # https://www.vagrantup.com/docs/disks/hyperv/usage
   # config.vm.disk :disk, primary: true, size: "40GB", Fixed: true
