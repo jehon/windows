@@ -44,25 +44,27 @@ Copy-Item -Recurse -Force -Path "$RootDir\startup\*" -Destination "C:\Users\jho\
 Write-Output "Installing startup scripts done"
 
 Write-Output "Installing choco packages..."
+choco install digikam
 choco install hashtab
 choco install jdk11 -params "static=false"
 choco install mobaxterm
 choco install naps2
+choco install notepadplusplus
 choco install psutils
 choco install vagrant
 choco install vcbuildtools
+choco install vlc
+choco install vscode
 choco install xmind
 
 # Non tested
-choco install clickshare-desktop
-choco install digikam
-choco install firefox
-choco install greenshot
-choco install logitech-options
-choco install plantronicshub
-choco install unifying
-choco install supertuxkart
-
+# choco install clickshare-desktop
+# choco install firefox
+# choco install greenshot
+# choco install logitech-options
+# choco install plantronicshub
+# choco install unifying
+# choco install supertuxkart
 # choco install freemind
 
 Write-Output "Installing choco packages done"
@@ -71,21 +73,7 @@ Write-Output "Installing choco packages done"
 # Configure some stuff
 #
 
-# For Vagrant
-# [Environment]::SetEnvironmentVariable("VAGRANT_DEFAULT_PROVIDER", "hyperv", "User")
+setx VAGRANT_DEFAULT_PROVIDER hyperv
 
-  hashtab `
-  logitech-options `
-  mobaxterm `
-  naps2 `
-  notepadplusplus `
-  plantronicshub `
-  psutils `
-  virtualbox `
-  vlc `
-  vscode `
-  wsl-ubuntu-2004 `
-  wsl2
-
-wsl --set-default-version 2
-wslconfig /setdefault Ubuntu
+# wsl --set-default-version 2
+# wslconfig /setdefault Ubuntu
