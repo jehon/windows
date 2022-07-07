@@ -18,6 +18,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/debian11"
   config.vm.hostname = "vagrant-dev"
   config.vm.network "public_network", bridge: "Default Switch"
+  # Not working: 
+  # config.vm.network "public_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
 
   # https://www.vagrantup.com/docs/disks/configuration
   # https://www.vagrantup.com/docs/disks/hyperv/usage
