@@ -23,6 +23,7 @@ if ( (Get-VMSwitch $NetworkSwitchName) 2> $null) {
 } else {
     Write-Output "[I] Creating the network adapter"
     New-VMSwitch -Name $NetworkSwitchName -SwitchType Internal
+    Set-NetIPAddress -InterfaceAlias "vEthernet ($($NetworkSwitchName))" -IPAddress 192.168.100.1 -PrefixLength 30
 }
 
 Write-Output "* Creating the disk"
