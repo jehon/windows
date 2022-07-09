@@ -66,3 +66,7 @@ Set-VMDvdDrive -VMName $VMName `
 
 Write-Output "* Setup $VMName"
 Start-VM -Name $VMName
+
+# TODO: quick config of debian
+# TODO: run start.sh
+# TODO: update ssh key !!!
