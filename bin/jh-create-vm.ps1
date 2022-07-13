@@ -65,9 +65,9 @@ if (Test-Path $ISOFile) {
 } else {
     Write-Output "[I] Downloading iso file $ISOURL to $ISOFile"
     Invoke-WebRequest -Uri $ISOURL -OutFile $ISOFile
-
-    # TODO: modify the iso for automatic install
 }
+
+# TODO: modify the iso for automatic install
 
 Set-VMDvdDrive -VMName $VMName `
     -ControllerNumber 1 `
