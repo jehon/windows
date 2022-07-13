@@ -35,16 +35,25 @@ if (Test-Path $VMDisk) {
 New-VHD -Path $VMDisk -SizeBytes 60GB -Fixed
 
 Write-Output "* Creating the VM"
+# https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vm?view=windowsserver2022-ps
 New-VM -Name $VMName `
     -Path $VMRoot `
-    -MemoryStartupBytes 4096Mb `
     -VHDPath $VMDisk `
     -Switch "Default Switch"
 
+# https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2022-ps
+Set-VMProcessor  -VMName $VMName `
+    -Count 2 `
+    -Maximum 100 `
+    -Reserve 25 `
+    -ExposeVirtualizationExtensions $true
+
+# https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmmemory?view=windowsserver2022-ps
 Set-VMMemory -VMName $VMName `
-    -DynamicMemoryEnabled 0
-#    -MaximumBytes <Int64>
-#    -MinimumBytes <Int64>
+    -StartupBytes 4096 `
+    -DynamicMemoryEnabled 1 `
+    -MaximumBytes 6000 `
+    -MinimumBytes 2000
 
 # Add a eth1 additionnal interface
 Add-VMNetworkAdapter -VMName $VMName `
