@@ -32,7 +32,7 @@ if (Test-Path $VMDisk) {
     Write-Output "[I] Remove previous file"
     Remove-Item $VMDisk
 }
-New-VHD -Path $VMDisk -SizeBytes 60GB -Fixed
+New-VHD -Path $VMDisk -SizeBytes 80GB -Fixed
 
 Write-Output "* Creating the VM"
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vm?view=windowsserver2022-ps
@@ -43,7 +43,8 @@ New-VM -Name $VMName `
 
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm
 Set-VM -Name $VMName `
-    -AutomaticCheckpointsEnabled $false
+    -AutomaticCheckpointsEnabled $false `
+    -CheckpointType Disabled
 
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2022-ps
 Set-VMProcessor  -VMName $VMName `
