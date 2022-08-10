@@ -41,6 +41,10 @@ New-VM -Name $VMName `
     -VHDPath $VMDisk `
     -Switch "Default Switch"
 
+# https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm
+Set-VM -Name $VMName `
+    -AutomaticCheckpointsEnabled $false
+
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2022-ps
 Set-VMProcessor  -VMName $VMName `
     -Count 2 `
@@ -52,8 +56,8 @@ Set-VMProcessor  -VMName $VMName `
 Set-VMMemory -VMName $VMName `
     -StartupBytes 4096 `
     -DynamicMemoryEnabled 1 `
-    -MaximumBytes 6000 `
-    -MinimumBytes 2000
+    -MaximumBytes 8192 `
+    -MinimumBytes 2048
 
 # Add a eth1 additionnal interface
 Add-VMNetworkAdapter -VMName $VMName `
