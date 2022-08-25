@@ -59,6 +59,9 @@ choco install vlc
 choco install vscode
 choco install xmind
 
+# Testing
+choco install ext2fsd
+
 # Non tested
 # choco install clickshare-desktop
 # choco install firefox
