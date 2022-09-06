@@ -10,30 +10,16 @@ Shared drive: https://www.altaro.com/hyper-v/transfer-files-linux-hyper-v-guest/
 
 In explorer => right click in "folders" (left pane) => show all folders
 
+## SSH (OpenSSH)
+
+Forward SSH keys to VSCode:
+- https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement
+
 ## Installed
 
-### Choco
+- Hyper-V (features)
 
-choco install git
-> voir fichier jh-setup.ps1
-
-### Marketplace
-
-- 7zip
-- notepadplusplus
-- WSL Ubuntu
-- HyperV (features)
-
-### vendors
-
-- vscode
-- VideoCutter and Compressor 
-
-## Docker Desktop
-
-User need to be in docker-users group (in windows)
-
-## Starup applications
+## Startup applications
 
 Gestionnaire:
 -> clic droit sur le bouton Démarrer
