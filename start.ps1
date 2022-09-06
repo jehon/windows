@@ -45,16 +45,16 @@ Write-Output "Installing startup scripts done"
 
 Write-Output "Installing choco packages..."
 choco install digikam
-choco install encfs4win
+# choco install encfs4win
 choco install hashtab
 choco install git
-choco install jdk11 -params "static=false"
+# choco install jdk11 -params "static=false"
 choco install mobaxterm
 choco install naps2
 choco install notepadplusplus
-choco install psutils
-choco install vagrant
-choco install vcbuildtools
+# choco install psutils
+# choco install vagrant
+# choco install vcbuildtools
 choco install vlc
 choco install vscode
 choco install xmind
@@ -70,7 +70,6 @@ choco install ext2fsd
 # choco install plantronicshub
 # choco install unifying
 # choco install supertuxkart
-# choco install freemind
 
 Write-Output "Installing choco packages done"
 
