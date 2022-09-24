@@ -45,6 +45,7 @@ Write-Output "Installing startup scripts done"
 
 Write-Output "Installing choco packages..."
 choco install digikam
+choco install eclipse
 # choco install encfs4win
 choco install hashtab
 choco install git
@@ -58,9 +59,6 @@ choco install notepadplusplus
 choco install vlc
 choco install vscode
 choco install xmind
-
-# Testing
-choco install ext2fsd
 
 # Non tested
 # choco install clickshare-desktop
