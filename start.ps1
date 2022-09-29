@@ -75,8 +75,11 @@ Write-Output "Installing choco packages done"
 # Configure some stuff
 #
 
-setx VAGRANT_DEFAULT_PROVIDER hyperv
-setx DOCKER_HOST "ssh://root@192.168.100.2"
-
 # wsl --set-default-version 2
 # wslconfig /setdefault Ubuntu
+
+setx VAGRANT_DEFAULT_PROVIDER hyperv
+setx DOCKER_HOST "ssh://root@fd54--0100-0002.ipv6-literal.net"
+
+ssh root@fd54::100:2 echo "ok"
+
