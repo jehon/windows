@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 $VMName = "dev"
 $VMRoot = "C:\users\jho\src\vm"
 $VMDisk = "$VMRoot\disk.vhdx"
-$NetworkSwitchName = "J - 192.168.100.1"
+$NetworkSwitchName = "J fd54::100:1"
 
 $ISOFile = "$VMRoot\debian.iso"
 $ISOURL = "https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-netinst.iso"
@@ -23,7 +23,7 @@ if ( (Get-VMSwitch $NetworkSwitchName) 2> $null) {
 } else {
     Write-Output "[I] Creating the network adapter"
     New-VMSwitch -Name $NetworkSwitchName -SwitchType Internal
-    Set-NetIPAddress -InterfaceAlias "vEthernet ($($NetworkSwitchName))" -IPAddress 192.168.100.1 -PrefixLength 30
+    Set-NetIPAddress -InterfaceAlias "vEthernet ($($NetworkSwitchName))" -IPAddress fd54:100:1 -PrefixLength 30
 }
 
 Write-Output "* Creating the disk"
