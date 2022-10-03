@@ -2,7 +2,8 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/jehon/windows/main/start.ps1'))
 
-Shared drive: https://www.altaro.com/hyper-v/transfer-files-linux-hyper-v-guest/
+net use \\fd54--0100-0002.ipv6-literal.net /u:WORKGROUP\jehon
+net use \\fe80--211-32ff-fe1b-8f92.ipv6-literal.net /u:WORKGROUP\jehon
 
 # System
 
