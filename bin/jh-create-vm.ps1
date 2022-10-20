@@ -60,10 +60,16 @@ Set-VMMemory -VMName $VMName `
     -MaximumBytes 8192 `
     -MinimumBytes 2048
 
+# https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmnetworkadapter?view=windowsserver2022-ps
+#   Available Mac Addresses: https://serverfault.com/a/40720/275843
+#   ipv6 address fe80::0200:00ff:fe00:001f
+Set-VMNetworkAdapter -VMName $VMName `
+    -StaticMacAddress "00:00:00:00:00:1f"
+
 # Add a eth1 additionnal interface
 Add-VMNetworkAdapter -VMName $VMName `
-    -SwitchName $NetworkSwitchName
-
+    -SwitchName $NetworkSwitchName `
+    
 Write-Output "* Add the iso"
 if (Test-Path $ISOFile) {
     Write-Output "[I] Using already downloaded iso at $ISOFile"
