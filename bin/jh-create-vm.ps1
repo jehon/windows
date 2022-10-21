@@ -9,25 +9,13 @@ $ErrorActionPreference = "Stop"
 $VMName = "dev"
 $VMRoot = "C:\users\jho\src\vm"
 $VMDisk = "$VMRoot\disk.vhdx"
-$NetworkSwitchName = "J fd54::100:1"
 
 $ISOFile = "$VMRoot\debian.iso"
 $ISOURL = "https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-netinst.iso"
 
 New-Item -ItemType Directory -ErrorAction SilentlyContinue $VMRoot
 
-Write-Output "* Network adaptator"
-# Get-VMSwitch  * | Format-Table Name
-if ( (Get-VMSwitch $NetworkSwitchName) 2> $null) {
-    Write-Output "[I] The network adapter already exists"
-} else {
-    Write-Output "[I] Creating the network adapter"
-    New-VMSwitch -Name $NetworkSwitchName -SwitchType Internal
-    Set-NetIPAddress -InterfaceAlias "vEthernet ($($NetworkSwitchName))" -IPAddress fd54:100:1 -PrefixLength 30
-}
-
 Write-Output "* Creating the disk"
-
 if (Test-Path $VMDisk) {
     Write-Output "[I] Remove previous file"
     Remove-Item $VMDisk
@@ -65,10 +53,6 @@ Set-VMMemory -VMName $VMName `
 #   ipv6 address fe80::0200:00ff:fe00:001f
 Set-VMNetworkAdapter -VMName $VMName `
     -StaticMacAddress "00:00:00:00:00:1f"
-
-# Add a eth1 additionnal interface
-Add-VMNetworkAdapter -VMName $VMName `
-    -SwitchName $NetworkSwitchName `
     
 Write-Output "* Add the iso"
 if (Test-Path $ISOFile) {
