@@ -81,5 +81,6 @@ Write-Output "Installing choco packages done"
 setx VAGRANT_DEFAULT_PROVIDER hyperv
 setx DOCKER_HOST "ssh://root@fe80--200-ff-fe00-1f.ipv6-literal.net"
 
-ssh root@fd54::100:2 echo "ok"
+# Initialize the ssh key (docker would otherwise cause problems)
+ssh root@fe80::200:ff:fe00:1f echo "ok"
 
