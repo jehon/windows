@@ -18,15 +18,14 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/debian11"
   config.vm.hostname = "vagrant-dev"
   config.vm.network "public_network", bridge: "Default Switch"
-  # Not working: 
-  # config.vm.network "private_network", bridge: "J Internal 192.168.100.1", ip: "192.168.100.2"
+  config.vm.network "forwarded_port", guest: 22, host: 2022
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  # config.vm.synced_folder "../data", "/vagrant_data"
 
   # https://www.vagrantup.com/docs/disks/configuration
   # https://www.vagrantup.com/docs/disks/hyperv/usage
-  # config.vm.disk :disk, primary: true, size: "40GB", Fixed: true
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
+  config.vm.disk :disk, primary: true, size: "80GB", Fixed: true
+    
   #
   # hyperv specific
   #
@@ -34,11 +33,12 @@ Vagrant.configure("2") do |config|
     # https://www.vagrantup.com/docs/providers/hyperv/configuration
     h.auto_start_action = "StartIfRunning"
     h.cpus = 2
+    h.memory = 4096
+    h.maxmemory = 8192
+	h.mac = "00:00:00:00:00:1d"
+	h.enable_checkpoints = false
     h.enable_virtualization_extensions = true
     h.enable_enhanced_session_mode = true
-    h.linked_clone = true
-    h.memory = 4096
-    h.maxmemory = 4096
     h.vmname = "vagrant-dev"
   end
 
@@ -48,11 +48,4 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
   SHELL
-
-  #
-  # Interact with
-  #
-
-  # Not working:
-  # config.vm.network "forwarded_port", guest: 22, host: 3022
 end
