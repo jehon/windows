@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
   # Network
   #
   config.vm.network "public_network", bridge: "Default Switch"
-  config.vm.network "forwarded_port", guest: 22, host: 2022
+  # config.vm.network "forwarded_port", host: 2022, host_ip: "127.0.0.1", guest: 22, guest_ip: "127.0.0.1", protocol: "tcp"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   ## SSH
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
     h.cpus = 2
     h.memory = 4096
     h.maxmemory = 8192
-	h.mac = "00:00:00:00:00:1d"
+	h.mac = "00:00:00:00:00:1f"
 	h.enable_checkpoints = false
     h.enable_virtualization_extensions = true
     h.enable_enhanced_session_mode = true
@@ -56,7 +56,10 @@ Vagrant.configure("2") do |config|
   # Configure
   #
   config.vm.provision "shell", inline: <<-SHELL
-    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
-	apt update && apt install -y jehon-packages jehon-hardware-hyperv jehon-systeme-vm
+    set -o errexit
+	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
+	apt update
+	DEBIAN_FRONTEND=noninteractive apt install -y jehon-packages jehon-desktop jehon-hardware-hyperv jehon-os-debian jehon-system-vm
+	reboot
   SHELL
 end
