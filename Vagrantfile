@@ -62,4 +62,29 @@ Vagrant.configure("2") do |config|
 	DEBIAN_FRONTEND=noninteractive apt install -y jehon-packages jehon-desktop jehon-hardware-hyperv jehon-os-debian jehon-system-vm
 	reboot
   SHELL
+
+  ###########################################################
+  #
+  # Locally
+  #
+  #  @see https://developer.hashicorp.com/vagrant/docs/triggers/configuration
+  #
+  IP="fe80::200:ff:fe00:1f"
+  
+  config.trigger.after [:up, :destroy ] do |trigger|
+    trigger.name = "SSH cleanup"
+	trigger.info = "forget key"
+
+	trigger.run = { inline: "ssh-keygen -R #{IP}" }
+	trigger.on_error = :continue
+  end
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "SSH add"
+	trigger.info = "Update the local known_hosts"
+
+	trigger.run = { inline: "ssh-keyscan #{IP} >> #{Dir::home()}/.ssh/known_hosts" }
+	trigger.on_error = :continue
+  end
+
 end
