@@ -57,6 +57,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provision "shell", inline: <<-SHELL
     set -o errexit
+	adduser --shell /bin/bash jehon
 	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
 	apt update
 	DEBIAN_FRONTEND=noninteractive apt install -y jehon-packages jehon-desktop jehon-hardware-hyperv jehon-os-debian jehon-system-vm
