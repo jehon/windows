@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
     trigger.name = "SSH add"
 	trigger.info = "Update the local known_hosts"
 
-	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new #{IP} echo 'ok' " }
+	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new jehon@#{IP} echo 'ok' " }
 	trigger.on_error = :continue
   end
 
