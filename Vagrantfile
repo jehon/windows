@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
   #  @see https://developer.hashicorp.com/vagrant/docs/triggers/configuration
   #
   IP="fe80::200:ff:fe00:1f"
-  
+
   config.trigger.after [:up, :destroy ] do |trigger|
     trigger.name = "SSH cleanup"
 	trigger.info = "forget key"
@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
     trigger.name = "SSH add"
 	trigger.info = "Update the local known_hosts"
 
-	trigger.run = { inline: "ssh-keyscan #{IP} >> #{Dir::home()}/.ssh/known_hosts" }
+	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new #{IP} echo 'ok' " }
 	trigger.on_error = :continue
   end
 
