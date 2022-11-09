@@ -53,9 +53,23 @@ Vagrant.configure("2") do |config|
 
   ###########################################################
   #
-  # Configure
+  # Provisionner
   #
-  config.vm.provision "shell", inline: <<-SHELL
+  #    vagrant provision --provision-with sshkey
+  #
+  #  @see https://developer.hashicorp.com/vagrant/docs/provisioning/basic_usage
+  #
+
+  #  @See docs.vagrantup.com/v2/provisioning/file.html
+  config.vm.provision "sshkey", type: "file", source: "#{ENV["USERPROFILE"]}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
+	
+  config.vm.provision "sshkey-install", type: "shell", inline: <<-SHELL
+    mkdir -p /root/.ssh
+	cp -r /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
+	chmod 600 -R /root/.ssh
+  SHELL
+    
+  config.vm.provision "packages", type: "shell", inline: <<-SHELL
     set -o errexit
 	adduser --shell /bin/bash jehon
 	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
@@ -86,6 +100,5 @@ Vagrant.configure("2") do |config|
 
 	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new jehon@#{IP} echo 'ok' " }
 	trigger.on_error = :continue
-  end
-
+  end 
 end
