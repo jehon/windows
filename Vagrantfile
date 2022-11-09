@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
 	h.enable_checkpoints = false
     h.enable_virtualization_extensions = true
     h.enable_enhanced_session_mode = true
-    h.vmname = "vagrant-dev"
+    h.vmname = config.vm.hostname
   end
 
   ###########################################################
