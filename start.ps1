@@ -11,6 +11,12 @@ if (Enter-Admin) {
 
 $RootDir = $PSScriptRoot
 
+
+Write-Output "Enable hyperv..."
+# See https://developer.hashicorp.com/vagrant/docs/providers/hyperv
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Write-Output "Enable hyperv done"
+
 #
 # Do we have choco installed?
 #
