@@ -1,6 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+Vagrant.require_version ">= 2.3.1"
+
+VMName = "vm-dev"
+IP = "fe80::ff:fe00:1f"
+MAC = "02:00:00:00:00:01"
+
 Vagrant.configure("2") do |config|
   ###########################################################
   #
@@ -10,7 +16,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provider "hyperv"
   config.vm.box = "generic/debian11"
-  config.vm.hostname = "vagrant-dev"
+  config.vm.hostname = VMName
 
   ###########################################################
   #
@@ -44,7 +50,7 @@ Vagrant.configure("2") do |config|
     h.cpus = 2
     h.memory = 4096
     h.maxmemory = 8192
-	h.mac = "00:00:00:00:00:1f"
+	h.mac = MAC
 	h.enable_checkpoints = false
     h.enable_virtualization_extensions = true
     h.enable_enhanced_session_mode = true
@@ -63,28 +69,29 @@ Vagrant.configure("2") do |config|
   #  @See docs.vagrantup.com/v2/provisioning/file.html
   config.vm.provision "sshkey", type: "file", source: "#{ENV["USERPROFILE"]}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
 	
-  config.vm.provision "sshkey-install", type: "shell", inline: <<-SHELL
+  config.vm.provision "packages", type: "shell", inline: <<-SHELL
+    set -o errexit
+	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
+  SHELL
+#	adduser --shell /bin/bash jehon
+
+  config.vm.provision "firefox", type: "file", source: "#{ENV["USERPROFILE"]}/AppData/Roaming/Mozilla/Firefox", destination: "/home/vagrant/.mozilla/firefox"
+
+  config.vm.provision "install", type: "shell", inline: <<-SHELL
     mkdir -p /root/.ssh
 	cp -r /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
 	chmod 600 -R /root/.ssh
   SHELL
-    
-  config.vm.provision "packages", type: "shell", inline: <<-SHELL
-    set -o errexit
-	adduser --shell /bin/bash jehon
-	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
-	apt update
-	DEBIAN_FRONTEND=noninteractive apt install -y jehon-packages jehon-desktop jehon-hardware-hyperv jehon-os-debian jehon-system-vm
-	reboot
-  SHELL
-
+    #mkdir -p /home/jehon/.mozilla/
+    #mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
+	#sudo chown jehon:jehon -R /home/jehon/.mozilla/firefox
+  
   ###########################################################
   #
   # Locally
   #
   #  @see https://developer.hashicorp.com/vagrant/docs/triggers/configuration
   #
-  IP="fe80::200:ff:fe00:1f"
 
   config.trigger.after [:up, :destroy ] do |trigger|
     trigger.name = "SSH cleanup"

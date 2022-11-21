@@ -88,5 +88,4 @@ setx VAGRANT_DEFAULT_PROVIDER hyperv
 setx DOCKER_HOST "ssh://root@fe80--200-ff-fe00-1f.ipv6-literal.net"
 
 # Initialize the ssh key (docker would otherwise cause problems)
-ssh root@fe80::200:ff:fe00:1f echo "ok"
-
+ssh root@fe80--200-ff-fe00-1f.ipv6-literal.net echo "ok"
