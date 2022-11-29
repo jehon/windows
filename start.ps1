@@ -58,6 +58,7 @@ choco install git
 # choco install jdk11 -params "static=false"
 choco install mobaxterm
 choco install naps2
+choco install nodejs
 choco install notepadplusplus
 # choco install psutils
 # choco install vagrant
