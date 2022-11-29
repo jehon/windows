@@ -1,7 +1,8 @@
 {
   "type": "module",
   "dependencies": {
-    "csv": "6.2.4"
+    "csv": "6.2.4",
+    "xlsx": "0.18.5"
   },
   "devDependencies": {
     "eslint": "8.28.0"

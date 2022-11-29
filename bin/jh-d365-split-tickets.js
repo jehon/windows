@@ -4,12 +4,10 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 
-import * as csv from 'csv';
+import XLSX from "xlsx";
 
-// import * as csv from 'csv';
-
-const F_INPUT = path.join(os.homedir(), 'Downloads', 'd365.csv');
-const F_OUTPUT = F_INPUT.replace('.csv', '-splitted.csv')
+const F_INPUT = path.join(os.homedir(), 'Downloads', 'd365.xlsx');
+const F_OUTPUT = F_INPUT.replace('.xlsx', '-splitted.xlsx')
 
 process.stdout.write(`FILE: ${F_INPUT}\n`);
 try {
@@ -18,37 +16,18 @@ try {
     console.error("File does not exists");
 }
 
-fs.createReadStream(F_INPUT, {  /* encoding: 'latin1' */})
-    .pipe(csv.parse({
-        delimiter: ';',
-        columns: true
-    }))
-    .pipe(csv.transform((obj, cb) => {
-        // console.log(obj);
-        cb(null, obj);
-    }))
-    .pipe(csv.stringify({
-        header: true,
-        bom: true,
-        delimiter: ';',
-        columns: {
-            'Clé de ticket': 'id',
-            'Résumé': 'title',
-            'Création': 'created',
-            'Mise à jour': 'updated',
-            'Composants': 'components',
-            'Etiquettes': 'tags'
-        },
-    }))
-    .pipe(fs.createWriteStream(F_OUTPUT, { encoding: 'utf-8'}));
+// https://www.npmjs.com/package/xlsx
 
-//     .pipe(csv2json({
-//         delimiter: ';'
-//     }))
-//     .pipe(new Transform({
-//         transform: (obj, encoding, cb) => {
-//             cb(null, obj);
-//         }
-//     }))
-//     .pipe(process.stdout);
+const workbook = XLSX.readFile(F_INPUT);
 
+const initialData = XLSX.utils.sheet_to_json(workbook.Sheets.Sheet1)
+
+const outputData = [];
+for(let i = 0; i< initialData.length; i++) {
+    outputData.push(initialData[i]);
+}
+
+console.log(outputData);
+
+XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(outputData), "splitted", true);
+XLSX.writeFile(workbook, F_OUTPUT);
