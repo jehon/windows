@@ -3,11 +3,20 @@
 import os from 'os';
 import fs from 'fs';
 import path from 'path';
+import assert from 'node:assert/strict';
 
 import XLSX from "xlsx";
 
 const F_INPUT = path.join(os.homedir(), 'Downloads', 'd365.xlsx');
 const F_OUTPUT = F_INPUT.replace('.xlsx', '-splitted.xlsx')
+
+const REGEX = /([A-Z]{3,10}|FM)-?[0-9]{2,4}/;
+
+assert.match("CCFF-001", REGEX);
+assert.match("FM-245", REGEX);
+assert.match("FM-22", REGEX);
+assert.match("ticket FM-22", REGEX);
+assert.doesNotMatch("bonjour ceci est mon ticket", REGEX);
 
 process.stdout.write(`FILE: ${F_INPUT}\n`);
 try {
