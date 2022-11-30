@@ -33,10 +33,35 @@ const initialData = XLSX.utils.sheet_to_json(workbook.Sheets.Sheet1)
 
 const outputData = [];
 for(let i = 0; i< initialData.length; i++) {
-    outputData.push(initialData[i]);
+    const line = initialData[i];
+
+    // Add other lines according to comments:
+    const comment = line['Commentaire externe'];
+    const tickets = [ ...(comment??"").matchAll(new RegExp(REGEX, 'g')) ].map(m => m[0]);
+    if (tickets && tickets.length > 0) {
+        console.log(comment, " => ", tickets.join(', '), line);
+        const n = tickets.length;
+        // "Heures"
+        for(let i = 0; i < n; i++ ) {
+            outputData.push({
+                ...line,
+                splitted: true,
+                splitted_Heures: line.Heures / n,
+                splitted_Ticket: tickets[i]
+
+            });
+        }
+    } else {
+        outputData.push({
+            ...line,
+            splitted: false,
+            splitted_Heures: line.Heures,
+            splitted_Ticket: 'no_ticket'
+        });
+    }
 }
 
-console.log(outputData);
+// console.log(outputData);
 
 XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(outputData), "splitted", true);
 XLSX.writeFile(workbook, F_OUTPUT);
