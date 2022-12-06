@@ -1,13 +1,24 @@
 #!/usr/bin/env node
 
-import os from 'os';
 import fs from 'fs';
-import path from 'path';
 import assert from 'node:assert/strict';
 
-import XLSX from "xlsx";
+import XLSX from 'xlsx';
+import yargs from 'yargs';
 
-const F_INPUT = path.join(os.homedir(), 'Downloads', 'd365.xlsx');
+const options = await yargs(process.argv.slice(2))
+    .usage('$0 <from>')
+    .command('$0 <from>', 'split file', yargs => {
+        yargs
+            .positional('from', {
+                type: 'string',
+                demandOption: "true"
+                })
+    })
+    .argv
+
+// const F_INPUT = path.join(os.homedir(), 'Downloads', 'd365.xlsx');
+const F_INPUT = options.from;
 const F_OUTPUT = F_INPUT.replace('.xlsx', '-splitted.xlsx')
 
 const REGEX = /([A-Z]{3,10}|FM)-?[0-9]{2,4}/;
@@ -22,7 +33,7 @@ process.stdout.write(`Reading ${F_INPUT}\n`);
 try {
     fs.statSync(F_INPUT);
 } catch (e) {
-    console.error("File does not exists");
+    console.error(`File ${F_INPUT} }does not exists`);
 }
 
 // https://www.npmjs.com/package/xlsx
