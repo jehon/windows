@@ -20,6 +20,10 @@ ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"
 Write-Output "* Adapting the dev config done"
 
 Write-Output "* Launching PCloud..."
+while (!(Test-Path "P:\")) { 
+    Start-Sleep 5
+}
+& "C:\Program Files\pCloud Drive\pCloud.exe"
 Write-Output "* Launching PCloud done"
 
 pause
