@@ -57,7 +57,7 @@ for(let i = 0; i< initialData.length; i++) {
             outputData.push({
                 ...line,
                 splitted: true,
-                splitted_Heures: line.Heures / n,
+                splitted_Heures: Math.round(line.Quantité / n * 10) / 10,
                 splitted_Ticket: tickets[i]
             });
         }
@@ -65,7 +65,7 @@ for(let i = 0; i< initialData.length; i++) {
         outputData.push({
             ...line,
             splitted: false,
-            splitted_Heures: line.Heures,
+            splitted_Heures: line.Quantité,
             splitted_Ticket: 'no_ticket'
         });
     }
