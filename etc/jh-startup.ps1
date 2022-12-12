@@ -12,7 +12,7 @@ $idx=(Get-WMIObject Win32_networkadapter `
 Write-Output "[I] IDX: $idx"
 
 $ssh_initial = Get-Content -path ~\.ssh\config -Raw
-$ssh_new = $ssh_initial -replace "HostName fe80::200:ff:fe00:1f%%.*", "HostName fe80::200:ff:fe00:1f%%$idx"
+$ssh_new = $ssh_initial -replace "HostName fe80::ff:fe00:1%%.*", "HostName fe80::ff:fe00:1%%$idx"
 $ssh_new | Set-Content -NoNewline -Path ~\.ssh\config
 
 # Initialize the ssh key (docker would otherwise cause problems)
