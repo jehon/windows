@@ -6,8 +6,6 @@
 if (Enter-Admin) {
     # As Normal user
 
-    
-
     Write-Output "This script is restated as admin"
 } else {
     # As Admin
