@@ -86,26 +86,25 @@ Vagrant.configure("2") do |config|
     curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
   SHELL
 
-#	adduser --shell /bin/bash jehon
+  config.vm.provision "user-jehon", type: "shell", inline: <<-SHELL
+    set -o errexit
+	  useradd --create-home --shell /bin/bash jehon
+  SHELL
 
   #  @See docs.vagrantup.com/v2/provisioning/file.html
-  config.vm.provision "sshkey",  type: "file", source: "#{ENV["USERPROFILE"]}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
-  config.vm.provision "firefox", type: "file", source: "#{ENV["USERPROFILE"]}/AppData/Roaming/Mozilla/Firefox", destination: "/home/vagrant/.mozilla/firefox"
+  config.vm.provision "sshkey",  type: "file", source: "#{HOME}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
+  config.vm.provision "firefox", type: "file", source: "#{HOME}/AppData/Roaming/Mozilla/Firefox", destination: "/home/vagrant/.mozilla/firefox"
 
   config.vm.provision "install", type: "shell", inline: <<-SHELL
     mkdir -p /root/.ssh
-    cp -r /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
+    [ -r /home/vagrant/.ssh/id_rsa ] && mv /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
     chmod 600 -R /root/.ssh
 
     mkdir -p /home/jehon/.mozilla/firefox
-    mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
+	  [ -r /home/vagrant/firefox ] && mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
     chown jehon:jehon -R /home/jehon/.mozilla/firefox
   SHELL
-
-    #mkdir -p /home/jehon/.mozilla/
-    #mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
-	#sudo chown jehon:jehon -R /home/jehon/.mozilla/firefox
-  
+ 
   ###########################################################
   #
   # Locally
