@@ -7,6 +7,21 @@ VMName = "vm-dev"
 IP = "fe80::ff:fe00:1f"
 MAC = "02:00:00:00:00:01"
 
+HOME = ENV["USERPROFILE"]
+
+def fileMustExist(fn) 
+  if File.exist?(fn) then
+    STDOUT.puts("Ok, file #{fn} is found")
+    return
+  end
+
+  STDERR.puts("ABORTED! You need #{fn} file")
+  exit(false)
+end
+
+fileMustExist("#{HOME}/.ssh/ansible-key.txt")
+fileMustExist("#{HOME}/.ssh/id_rsa")
+
 Vagrant.configure("2") do |config|
   ###########################################################
   #
