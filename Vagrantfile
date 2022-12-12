@@ -66,22 +66,27 @@ Vagrant.configure("2") do |config|
   #  @see https://developer.hashicorp.com/vagrant/docs/provisioning/basic_usage
   #
 
-  #  @See docs.vagrantup.com/v2/provisioning/file.html
-  config.vm.provision "sshkey", type: "file", source: "#{ENV["USERPROFILE"]}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
-	
   config.vm.provision "packages", type: "shell", inline: <<-SHELL
     set -o errexit
-	curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
+    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
   SHELL
+
 #	adduser --shell /bin/bash jehon
 
+  #  @See docs.vagrantup.com/v2/provisioning/file.html
+  config.vm.provision "sshkey",  type: "file", source: "#{ENV["USERPROFILE"]}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
   config.vm.provision "firefox", type: "file", source: "#{ENV["USERPROFILE"]}/AppData/Roaming/Mozilla/Firefox", destination: "/home/vagrant/.mozilla/firefox"
 
   config.vm.provision "install", type: "shell", inline: <<-SHELL
     mkdir -p /root/.ssh
-	cp -r /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
-	chmod 600 -R /root/.ssh
+    cp -r /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
+    chmod 600 -R /root/.ssh
+
+    mkdir -p /home/jehon/.mozilla/firefox
+    mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
+    chown jehon:jehon -R /home/jehon/.mozilla/firefox
   SHELL
+
     #mkdir -p /home/jehon/.mozilla/
     #mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
 	#sudo chown jehon:jehon -R /home/jehon/.mozilla/firefox
@@ -92,20 +97,21 @@ Vagrant.configure("2") do |config|
   #
   #  @see https://developer.hashicorp.com/vagrant/docs/triggers/configuration
   #
+  # We use "dev" as hostname, since this will be the new host name
+  # "dev" is defined in ssh config, and updated by startup script, so it is good
+  #
 
   config.trigger.after [:up, :destroy ] do |trigger|
     trigger.name = "SSH cleanup"
-	trigger.info = "forget key"
-
-	trigger.run = { inline: "ssh-keygen -R #{IP}" }
-	trigger.on_error = :continue
+	  trigger.info = "forget key"
+  	trigger.run = { inline: "ssh-keygen -R dev" }
+  	trigger.on_error = :continue
   end
 
   config.trigger.after :up do |trigger|
     trigger.name = "SSH add"
-	trigger.info = "Update the local known_hosts"
-
-	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new jehon@#{IP} echo 'ok' " }
-	trigger.on_error = :continue
+	  trigger.info = "Update the local known_hosts"
+  	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new root@dev echo 'ok' " }
+  	trigger.on_error = :continue
   end 
 end
