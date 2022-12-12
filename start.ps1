@@ -7,6 +7,8 @@ if (Enter-Admin) {
     Exit 0
 }
 
+$ErrorActionPreference = "Stop"
+
 # . $PSScriptRoot\lib\require-admin.ps1
 
 Write-Output "Enable hyperv..."
