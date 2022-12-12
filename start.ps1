@@ -1,12 +1,8 @@
 
 #
-# We need to be admin to run this script
+# We need to be admin to run this script, but we can not use lib, 
+# since it may be unavailable.
 # 
-if (Enter-Admin) {
-    Write-Output "This script is restated as admin"
-    Exit 0
-}
-
 $ErrorActionPreference = "Stop"
 
 # . $PSScriptRoot\lib\require-admin.ps1

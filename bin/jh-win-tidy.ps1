@@ -4,15 +4,14 @@
 . $PSScriptRoot\..\lib\require-admin.ps1
 
 if (Enter-Admin) {
-    # As Normal user
-
-    Write-Output "This script is restated as admin"
-} else {
-    # As Admin
-
-    Write-Output "Updating..."
-    choco upgrade all
+    Write-Output "This script is restarted as admin"
+    Exit 0
 }
+
+# As Admin
+
+Write-Output "Updating..."
+choco upgrade all
 
 Write-Output "...done"
 pause
