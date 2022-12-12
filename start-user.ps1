@@ -15,12 +15,11 @@ git config --global fetch.writeCommitGraph true
 git config --global init.defaultBranch main
 Write-Output "Configuring git done"
 
-Write-Output "Installing startup scripts..."
+Write-Output "* Installing startup scripts..."
 # https://learn.microsoft.com/en-us/dotnet/api/system.environment.specialfolder
 $userStartupFolder = [Environment]::GetFolderPath("Startup")
-Copy-Item -Recurse -Force -Path "$PSScriptRoot\etc\jh-startup.ps1" -Destination "$userStartupFolder\jh-startup.ps1"
-# New-Item -Path "$userStartupFolder\jh-startup.ps1" -ItemType SymbolicLink -Value "$PSScriptRoot\etc\jh-startup.ps1"
-Write-Output "Installing startup scripts done"
+Write-Output "[I] Startup folder: $userStartupFolder"
+Write-Output "* Installing startup scripts done"
 
 & $PSScriptRoot\etc\jh-startup.ps1
 
