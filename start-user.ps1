@@ -19,6 +19,11 @@ Write-Output "* Installing startup scripts..."
 # https://learn.microsoft.com/en-us/dotnet/api/system.environment.specialfolder
 $userStartupFolder = [Environment]::GetFolderPath("Startup")
 Write-Output "[I] Startup folder: $userStartupFolder"
+# Copy-Item -Recurse -Force -Path "$PSScriptRoot\etc\jh-startup.ps1" -Destination 
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$userStartupFolder\jh-startup.lnk")
+$Shortcut.TargetPath = "$PSScriptRoot\etc\jh-startup.ps1"
+$Shortcut.Save()
 Write-Output "* Installing startup scripts done"
 
 & $PSScriptRoot\etc\jh-startup.ps1
