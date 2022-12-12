@@ -34,13 +34,10 @@ Write-Output "Checking choco is installed done"
 #
 # Loading some reg files
 #
-Write-Output "Loading some reg files..."
-Get-ChildItem "$RootDir\etc" -Filter *.reg | Foreach-Object {
-    $F = "$RootDir\etc\$_"
-    Write-Output "Loading $F"
-    regedit /S "$F"
-}
-Write-Output "Loading some reg files done"
+Write-Output "Loading jho.reg..."
+Write-Output "Loading $F"
+regedit /S "$PSScriptRoot\etc\jh.reg"
+Write-Output "Loading jho.reg done"
 
 #
 # explorer.exe shell:startup
