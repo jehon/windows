@@ -26,6 +26,10 @@ $Shortcut.TargetPath = "$PSScriptRoot\etc\jh-startup.ps1"
 $Shortcut.Save()
 Write-Output "* Installing startup scripts done"
 
+Write-Output "* Installing config..."
+Copy-Item -Recurse -Force -Path "$PSScriptRoot\etc\ssh_config" -Destination  "$home/.ssh/config"
+Write-Output "* Installing config done"
+
 & $PSScriptRoot\etc\jh-startup.ps1
 
 Write-Output "start-user: ok"
