@@ -14,3 +14,6 @@ git config --global fetch.writeCommitGraph true
 git config --global init.defaultBranch main
 Write-Output "Configuring git done"
 
+
+# Initialize the ssh key (docker would otherwise cause problems)
+ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"

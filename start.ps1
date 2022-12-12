@@ -6,11 +6,8 @@ if (Enter-Admin) {
     Write-Output "This script is restated as admin"
     Exit 0
 }
-# Write-Output $PSScriptRoot $RootDir
-# . $RootDir\lib\require-admin.ps1
 
-$RootDir = $PSScriptRoot
-
+# . $PSScriptRoot\lib\require-admin.ps1
 
 Write-Output "Enable hyperv..."
 # See https://developer.hashicorp.com/vagrant/docs/providers/hyperv
@@ -42,9 +39,6 @@ Write-Output "Loading jho.reg done"
 #
 # explorer.exe shell:startup
 #
-Write-Output "Installing startup scripts..."
-Copy-Item -Recurse -Force -Path "$RootDir\startup\*" -Destination "C:\Users\jho\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
-Write-Output "Installing startup scripts done"
 
 Write-Output "Installing choco packages..."
 choco install digikam
@@ -83,7 +77,4 @@ Write-Output "Installing choco packages done"
 # wslconfig /setdefault Ubuntu
 
 setx VAGRANT_DEFAULT_PROVIDER hyperv
-setx DOCKER_HOST "ssh://root@fe80--200-ff-fe00-1f.ipv6-literal.net"
-
-# Initialize the ssh key (docker would otherwise cause problems)
-ssh root@fe80--200-ff-fe00-1f.ipv6-literal.net echo "ok"
+setx DOCKER_HOST "ssh://root@dev"
