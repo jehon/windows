@@ -81,31 +81,31 @@ Vagrant.configure("2") do |config|
   #  @see https://developer.hashicorp.com/vagrant/docs/provisioning/basic_usage
   #
 
-  config.vm.provision "ansiblekey",  type: "file", source: "#{HOME}/.ssh/ansible-key.txt", destination: "/home/vagrant/setup/etc/jehon/restricted/ansible-key"
-
-  config.vm.provision "packages", type: "shell", inline: <<-SHELL
-    set -o errexit
-    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
-  SHELL
-
-  config.vm.provision "user-jehon", type: "shell", inline: <<-SHELL
-    set -o errexit
-	  id jehon >&/dev/null || useradd --create-home --shell /bin/bash jehon
-  SHELL
-
-  #  @See docs.vagrantup.com/v2/provisioning/file.html
-  config.vm.provision "sshkey",  type: "file", source: "#{HOME}/.ssh/id_rsa", destination: "/home/vagrant/.ssh/"
-#  config.vm.provision "firefox", type: "file", source: "#{HOME}/AppData/Roaming/Mozilla/Firefox", destination: "/home/vagrant/.mozilla/firefox"
-
+  config.vm.provision "ansiblekey",  type: "file", source: "#{HOME}/.ssh/ansible-key.txt", destination: "/home/vagrant/setup/ansible-key"
+  config.vm.provision "sshkey",  type: "file", source: "#{HOME}/.ssh/id_rsa", destination: "/home/vagrant/setup/id_rsa"
   config.vm.provision "install", type: "shell", inline: <<-SHELL
+    set -o errexit
+
+    mkdir -p /etc/jehon/restricted/
+    cp /home/vagrant/setup/ansible-key /etc/jehon/restricted/ansible-key
+    chmod 400 /etc/jehon/restricted/ansible-key
+
     mkdir -p /root/.ssh
-    [ -r /home/vagrant/.ssh/id_rsa ] && mv /home/vagrant/.ssh/id_rsa /root/.ssh/id_rsa
+    cp -f /home/vagrant/setup/id_rsa /root/.ssh/id_rsa
     chmod 600 -R /root/.ssh
   SHELL
 
-  # mkdir -p /home/jehon/.mozilla/firefox
-  # [ -r /home/vagrant/firefox ] && mv /home/vagrant/firefox /home/jehon/.mozilla/firefox
-  # chown jehon:jehon -R /home/jehon/.mozilla/firefox
+  config.vm.provision "shell", type: "shell", inline: <<-SHELL
+    set -o errexit
+    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
+
+    [ ! -r /opt/jehon/packages ] && git clone https://github.com/jehon/packages.git /opt/jehon/packages
+    cd /opt/jehon/packages
+    apt install -y ansible
+    ansible-playbook ansible/setup.yml --limit dev --connection=local
+
+    id jehon >&/dev/null || useradd --create-home --shell /bin/bash jehon
+  SHELL
 
   ###########################################################
   #
