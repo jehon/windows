@@ -97,13 +97,19 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", type: "shell", inline: <<-SHELL
     set -o errexit
+    export DEBIAN_FRONTEND=noninteractive
+    
     curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
 
+    echo "**************** Git clone packages *************"
     [ ! -r /opt/jehon/packages ] && git clone https://github.com/jehon/packages.git /opt/jehon/packages
+    
+    echo "**************** Running ansible ****************"
     cd /opt/jehon/packages
     apt install -y ansible
     ansible-playbook ansible/setup.yml --limit dev --connection=local
 
+    echo "**************** Adding jehon *******************"
     id jehon >&/dev/null || useradd --create-home --shell /bin/bash jehon
   SHELL
 
