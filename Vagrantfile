@@ -81,11 +81,7 @@ Vagrant.configure("2") do |config|
   #  @see https://developer.hashicorp.com/vagrant/docs/provisioning/basic_usage
   #
 
-  config.vm.provision "ipv6", type: "shell", inline: <<-SHELL
-    sysctl -p
-    ip addr flush eth0
-    systemctl restart network-manager.service
-  SHELL
+  config.vm.provision "ansiblekey",  type: "file", source: "#{HOME}/.ssh/ansible-key.txt", destination: "/home/vagrant/setup/etc/jehon/restricted/ansible-key"
 
   config.vm.provision "packages", type: "shell", inline: <<-SHELL
     set -o errexit
