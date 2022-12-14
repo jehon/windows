@@ -99,14 +99,14 @@ Vagrant.configure("2") do |config|
     set -o errexit
     export DEBIAN_FRONTEND=noninteractive
     
-    curl -fsSL https://raw.githubusercontent.com/jehon/packages/main/start | bash -E -
-
     echo "**************** Git clone packages *************"
     [ ! -r /opt/jehon/packages ] && git clone https://github.com/jehon/packages.git /opt/jehon/packages
     
     echo "**************** Running ansible ****************"
     apt update && apt install -y ansible
-    cd /opt/jehon/packages && ansible-playbook ansible/setup.yml --limit dev --connection=local
+    cd /opt/jehon/packages
+    git config pull.rebase true
+    ansible-playbook ansible/setup.yml --limit dev --connection=local
   SHELL
 
   ###########################################################
