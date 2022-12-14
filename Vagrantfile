@@ -105,9 +105,7 @@ Vagrant.configure("2") do |config|
     [ ! -r /opt/jehon/packages ] && git clone https://github.com/jehon/packages.git /opt/jehon/packages
     
     echo "**************** Running ansible ****************"
-    cd /opt/jehon/packages
-    apt install -y ansible
-    ansible-playbook ansible/setup.yml --limit dev --connection=local
+    cd /opt/jehon/packages && ansible-playbook ansible/setup.yml --limit dev --connection=local
 
     echo "**************** Adding jehon *******************"
     id jehon >&/dev/null || useradd --create-home --shell /bin/bash jehon
