@@ -1,7 +1,14 @@
 
 $ErrorActionPreference = "Stop"
 
+$LogFile = "jh-vagrant.log"
+
 clear
-Remove-Item -Force -Path jh-vagrant.log
+if (Test-Path $LogFile) {
+    Remove-Item -Force -Path $LogFile
+}
+
+
+git pull --rebase --autostash
 vagrant destroy -f
-vagrant up | tee -filepath jh-vagrant.log
+vagrant up | tee -filepath $LogFile
