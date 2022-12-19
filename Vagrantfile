@@ -102,11 +102,14 @@ Vagrant.configure("2") do |config|
     echo "**************** Git clone packages *************"
     [ ! -r /opt/jehon/packages ] && git clone https://github.com/jehon/packages.git /opt/jehon/packages
     
-    echo "**************** Running ansible ****************"
+    echo "**************** Install ansible ****************"
     apt update && apt install -y ansible
+    echo "**************** Get packages repo ****************"
     cd /opt/jehon/packages
     git config pull.rebase true
-    ansible-playbook ansible/setup.yml --limit dev --connection=local
+    echo "**************** Run ansible ****************"
+    ( cd ansible && ansible-playbook setup.yml --limit dev --connection=local )
+    echo "**************** Done ****************"
   SHELL
 
   ###########################################################
@@ -119,8 +122,15 @@ Vagrant.configure("2") do |config|
   # "dev" is defined in ssh config, and updated by startup script, so it is good
   #
 
-  config.trigger.after [:up, :destroy ] do |trigger|
-    trigger.name = "SSH cleanup"
+  config.trigger.before :up do |trigger|
+    trigger.name = "SSH cleanup (before)"
+	  trigger.info = "forget key"
+  	trigger.run = { inline: "ssh-keygen -R dev" }
+  	trigger.on_error = :continue
+  end
+
+  config.trigger.after [ :up, :destroy ] do |trigger|
+    trigger.name = "SSH cleanup (after)"
 	  trigger.info = "forget key"
   	trigger.run = { inline: "ssh-keygen -R dev" }
   	trigger.on_error = :continue
@@ -129,7 +139,12 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "SSH add"
 	  trigger.info = "Update the local known_hosts"
-  	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new root@dev echo 'ok' " }
+  	trigger.run = { inline: "ssh -o BatchMode=yes -o StrictHostKeyChecking=no root@dev echo 'ok' " }
   	trigger.on_error = :continue
   end
+  
+  config.vm.provision "shell", type: "shell", inline: <<-SHELL
+	reboot
+  SHELL
+  
 end
