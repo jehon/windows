@@ -8,17 +8,18 @@ if (Enter-Admin) {
     Exit 0
 }
 
-Write-Output "Starting..."
-
-if (Test-Path "$env:windir\System32\GroupPolicyUsers") {
-    Write-Output "Deleting GroupPolicyUsers"
-    Remove-Item -Recurse -Force "$env:windir\System32\GroupPolicyUsers"
-}
-
-if (Test-Path "$env:windir\System32\GroupPolicy") {
-    Write-Output "Deleting GroupPolicy"
-    Remove-Item -Recurse -Force "$env:windir\System32\GroupPolicy"
-}
+# Write-Output "Starting..."
+#
+# if (Test-Path "$env:windir\System32\GroupPolicyUsers") {
+#     Write-Output "Deleting GroupPolicyUsers"
+#     Remove-Item -Recurse -Force "$env:windir\System32\GroupPolicyUsers"
+# }
+#
+# if (Test-Path "$env:windir\System32\GroupPolicy") {
+#     Write-Output "Deleting GroupPolicy"
+#     Remove-Item -Recurse -Force "$env:windir\System32\GroupPolicy"
+# }
+#
 
 Write-Output "GP Update..."
 gpupdate /force
