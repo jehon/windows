@@ -144,7 +144,7 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision "shell", type: "shell", inline: <<-SHELL
-	reboot
+	  reboot
   SHELL
-  
+ 
 end
