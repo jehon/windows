@@ -19,8 +19,9 @@ ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"
 Write-Output "* Adapting the dev config done"
 
 Write-Output "* Launching Teams..."
+# https://superuser.com/a/1626176/287025
 # https://answers.microsoft.com/en-us/msteams/forum/all/teams-and-media-keys/136320bb-7af0-4bdc-8743-56608ff576b2?page=2
-& "C:\Users\jho\AppData\Local\Microsoft\Teams\Update.exe" --processStart "Teams.exe" --process-start-args ( "--profile=AAD", "--disable-features=HardwareMediaKeyHandling" )
+& "C:\Users\jho\AppData\Local\Microsoft\Teams\Update.exe" --processStart "Teams.exe" --process-start-args ( "--profile=AAD", "-disable-features=HardwareMediaKeyHandling" )
 Write-Output "* Launching Teams done"
 
 Write-Output "* Waiting for P drive..."
