@@ -1,22 +1,22 @@
 
 $ErrorActionPreference = "Stop"
 
-Write-Output "* Getting hyperv adapter..."
-# Get-WMIObject Win32_networkadapter | Select-Object Name, AdapterType, InterfaceIndex | Sort Name | Format-Table
+# Write-Output "* Getting hyperv adapter..."
+# # Get-WMIObject Win32_networkadapter | Select-Object Name, AdapterType, InterfaceIndex | Sort Name | Format-Table
 
-$idx=(Get-WMIObject Win32_networkadapter `
-    | Select-Object Name, AdapterType, InterfaceIndex `
-    | Where-Object -Property Name -eq 'Hyper-V Virtual Ethernet Adapter' `
-)[0].InterfaceIndex
-Write-Output "[I] IDX: $idx"
-Write-Output "* Getting hyperv adapter done"
+# $idx=(Get-WMIObject Win32_networkadapter `
+#     | Select-Object Name, AdapterType, InterfaceIndex `
+#     | Where-Object -Property Name -eq 'Hyper-V Virtual Ethernet Adapter' `
+# )[0].InterfaceIndex
+# Write-Output "[I] IDX: $idx"
+# Write-Output "* Getting hyperv adapter done"
 
-Write-Output "* Adapting the dev config..."
-$ssh_initial = Get-Content -path ~\.ssh\config -Raw
-$ssh_new = $ssh_initial -replace "HostName fe80::ff:fe00:1%%.*", "HostName fe80::ff:fe00:1%%$idx"
-$ssh_new | Set-Content -NoNewline -Path ~\.ssh\config
-ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"
-Write-Output "* Adapting the dev config done"
+# Write-Output "* Adapting the dev config..."
+# $ssh_initial = Get-Content -path ~\.ssh\config -Raw
+# $ssh_new = $ssh_initial -replace "HostName fe80::ff:fe00:1%%.*", "HostName fe80::ff:fe00:1%%$idx"
+# $ssh_new | Set-Content -NoNewline -Path ~\.ssh\config
+# ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"
+# Write-Output "* Adapting the dev config done"
 
 # Write-Output "* Launching Teams..."
 # https://superuser.com/a/1626176/287025
