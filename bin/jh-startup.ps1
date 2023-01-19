@@ -1,3 +1,6 @@
+#
+# Create link in: shell:startup
+#
 
 $ErrorActionPreference = "Stop"
 
@@ -42,4 +45,4 @@ if (Test-Path "D:\") {
 	Write-Output "* Launching PCloud done"
 }
 
-pause
+# pause
