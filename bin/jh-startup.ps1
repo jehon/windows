@@ -21,15 +21,6 @@ $ErrorActionPreference = "Stop"
 # ssh -o StrictHostKeyChecking=accept-new root@dev echo "ok"
 # Write-Output "* Adapting the dev config done"
 
-# Write-Output "* Launching Teams..."
-# https://superuser.com/a/1626176/287025
-# https://answers.microsoft.com/en-us/msteams/forum/all/teams-and-media-keys/136320bb-7af0-4bdc-8743-56608ff576b2?page=2
-# & "C:\Users\My Name\AppData\Local\Microsoft\Teams\Update.exe" --processStart "Teams.exe" --process-start-args "--disable-features=HardwareMediaKeyHandling --system-initiated"
-# cd C:\Users\jho\AppData\Local\Microsoft\Teams ???
-# & "C:\Users\jho\AppData\Local\Microsoft\Teams\Update.exe" --processStart "Teams.exe" --process-start-args ( "--profile=AAD", "-disable-features=HardwareMediaKeyHandling" )
-# Start-Process -File "C:\Users\jho\AppData\Local\Microsoft\Teams\current\Teams.exe" -ArgumentList --disable-features=HardwareMediaKeyHandling
-# Write-Output "* Launching Teams done"
-
 if (Test-Path "D:\") {
 	Write-Output "PCloud is already present at D:"
 } else {
@@ -45,4 +36,11 @@ if (Test-Path "D:\") {
 	Write-Output "* Launching PCloud done"
 }
 
-# pause
+Do {
+    Get-Date
+    Write-Output "* Launching wsl..."
+    & debian run "/home/jehon/src/devstack/wsl.sh"
+    Write-Output "* Launching wsl terminated"
+    Start-Sleep -Seconds 10
+    pause
+} While (True)
