@@ -41,6 +41,6 @@ Do {
     Write-Output "* Launching wsl..."
     & debian run "/home/jehon/src/devstack/wsl.sh"
     Write-Output "* Launching wsl terminated"
+	Write-Output "* Relaunching in 10 seconds"
     Start-Sleep -Seconds 10
-    pause
-} While (True)
+} While ($true)
