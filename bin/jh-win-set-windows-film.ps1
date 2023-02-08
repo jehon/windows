@@ -1,5 +1,5 @@
 
-. $PSScriptRoot\..\lib\screens.ps1
+. $PSScriptRoot\lib\screens.ps1
 
 Move-Window-To-Screen -Name "Teams"      -Screen $secondary -Maximize
 Move-Window-To-Screen -Name "chrome"     -Screen $secondary -Maximize

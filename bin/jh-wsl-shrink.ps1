@@ -1,7 +1,7 @@
 
 # Thanks to https://superuser.com/a/1612289/287025
 
-. $PSScriptRoot\..\lib\require-admin.ps1
+. $PSScriptRoot\lib\require-admin.ps1
 
 if (Enter-Admin) {
     Write-Output "This script is restated as admin"

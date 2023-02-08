@@ -1,5 +1,5 @@
 
-. $PSScriptRoot\..\lib\screens.ps1
+. $PSScriptRoot\lib\screens.ps1
 
 Move-Window-To-Screen -Name "firefox"    -Screen $secondary -Maximize
 Move-Window-To-Screen -Name "MobaXterm"  -Screen $secondary -Maximize
