@@ -39,7 +39,7 @@ if (Test-Path "D:\") {
 Do {
     Get-Date
     Write-Output "* Launching wsl..."
-    & debian run "/home/jehon/src/devstack/wsl.sh"
+    & debian run "/home/jehon/src/devstack/bin/wsl.sh"
     Write-Output "* Launching wsl terminated"
 	Write-Output "* Relaunching in 10 seconds"
     Start-Sleep -Seconds 10
