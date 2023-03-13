@@ -27,7 +27,7 @@ if (Test-Path "D:\") {
 	Write-Output "* Waiting for P drive..."
 	while (!(Test-Path "P:\")) { 
 		Start-Sleep 5
-		Write-Output "."
+		Write-Output -NoNewline "."
 	}
 	Write-Output "* Waiting for P drive done"
 
@@ -41,6 +41,6 @@ Do {
     Write-Output "* Launching wsl..."
     & debian run "/home/jehon/src/devstack/bin/wsl.sh"
     Write-Output "* Launching wsl terminated"
-	Write-Output "* Relaunching in 10 seconds"
-    Start-Sleep -Seconds 10
+	Write-Output "* Relaunching in 1 second"
+    Start-Sleep -Seconds 1
 } While ($true)
