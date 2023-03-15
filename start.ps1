@@ -26,9 +26,10 @@ Write-Output "Loading jho.reg done"
 
 Write-Output "Installing choco packages..."
 # choco install encfs4win
-# choco install hashtab
+choco install hashtab
 choco install git
 # choco install naps2
+choco install nerd-fonts-delugiamono-complete
 # choco install notepadplusplus
 # choco install vagrant
 # choco install vlc
