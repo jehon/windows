@@ -27,7 +27,7 @@ if (Test-Path "D:\") {
 	Write-Output "* Waiting for P drive..."
 	while (!(Test-Path "P:\")) { 
 		Start-Sleep 5
-		Write-Output -NoNewline "."
+		Write-Host -NoNewline "."
 	}
 	Write-Output "* Waiting for P drive done"
 
