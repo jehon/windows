@@ -11,7 +11,7 @@ $VMRoot = "C:\users\jho\src\vm"
 $VMDisk = "$VMRoot\disk.vhdx"
 
 $ISOFile = "$VMRoot\debian.iso"
-$ISOURL = "https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-netinst.iso"
+$ISOURL = "https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-stable-amd64-netinst.iso"
 
 New-Item -ItemType Directory -ErrorAction SilentlyContinue $VMRoot
 
