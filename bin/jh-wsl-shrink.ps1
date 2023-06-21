@@ -8,19 +8,25 @@ if (Enter-Admin) {
     Exit 0
 }
 
-$file = "C:\Users\jho\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\ext4.vhdx"
-$distrib = "Ubuntu"
+$distrib = "Debian"
 
-Write-Output "Stoping $distrib"
-wsl -t $distrib
+# https://learn.microsoft.com/en-us/windows/wsl/disk-space#how-to-locate-the-vhdx-file-and-disk-path-for-your-linux-distribution
+$file = (Get-ChildItem -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss | Where-Object { $_.GetValue("DistributionName") -eq $distrib }).GetValue("BasePath") + "\ext4.vhdx"
 
-Write-Output "Shrinking drive"
-Write-Output $file
+Write-Output "* Distribution:  $distrib"
+Write-Output "* Detected file: $file"
 
+Write-Output "* Stopping..."
+# shutdown terminate imediately (see wsl --help)
+wsl --shutdown $distrib
+Write-Output "* Stopping done"
+
+Write-Output "* Shrinking drive..."
 Optimize-VHD -Path $file -Mode Full
 # Get-ChildItem -Path $file | Select-Object FullName, @{Name = "Size"; E = { $_.Length / 1GB } }
 Write-Output ((Get-Item $file).length/1GB) " GB"
+Write-Output "* Shrinking drive done"
 
-Write-Output "All done"
+Write-Output "* All done"
 
 pause
