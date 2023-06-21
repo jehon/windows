@@ -20,6 +20,8 @@ Forward SSH keys to VSCode:
 
 - Hyper-V (features)
 
+check C:\ProgramData\Microsoft\Windows\Virtual Hard Disks
+
 ## Startup applications
 
 Gestionnaire:
