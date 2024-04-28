@@ -25,13 +25,11 @@ Write-Output "Loading jho.reg done"
 #
 
 Write-Output "Installing choco packages..."
-# choco install encfs4win
 choco install hashtab
 choco install git
 # choco install naps2
 choco install nerd-fonts-delugiamono-complete
 # choco install notepadplusplus
-# choco install vagrant
 # choco install vlc
 # choco install vscode
 
@@ -49,5 +47,4 @@ Write-Output "Installing choco packages done"
 # Configure some stuff
 #
 
-setx VAGRANT_DEFAULT_PROVIDER hyperv
-setx DOCKER_HOST "ssh://root@localhost"
+# setx DOCKER_HOST "ssh://root@localhost"
