@@ -15,10 +15,11 @@ Write-Output "Enable hyperv done"
 #
 # Loading some reg files
 #
-Write-Output "Loading jho.reg..."
-Write-Output "Loading $F"
-regedit /S "$PSScriptRoot\etc\jh.reg"
-Write-Output "Loading jho.reg done"
+
+# Write-Output "Loading jho.reg..."
+# Write-Output "Loading $F"
+# regedit /S "$PSScriptRoot\etc\jh.reg"
+# Write-Output "Loading jho.reg done"
 
 #
 # explorer.exe shell:startup
